@@ -9,6 +9,7 @@
 		"**/__pycache__"
 	],
 	"ignore": [
+		"backend/src/nodes/impl/pytorch/architecture/gfisrv2",
 		"backend/src/nodes/impl/tensorrt",
 		"backend/src/packages/chaiNNer_tensorrt"
 	],
