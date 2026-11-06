@@ -10,4 +10,3 @@ Keep the Spandrel adapter in `nodes/impl/pytorch/gfisrv2.py`, outside this direc
 When refreshing this source, review upstream changes, update this commit reference,
 and run the GFISRv2 tests. Do not replace it from an unpinned URL at runtime.
 Model weights are not included and retain their own licenses.
-
