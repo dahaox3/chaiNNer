@@ -27,7 +27,6 @@ from PIL import Image, ImageOps
 from api import NodeContext
 
 PROTOCOL_VERSION = 1
-IMPLEMENTATION_VERSION = "comicread-bridge-1"
 MAX_UPLOAD = 64 * 1024**2
 MAX_PIXELS = 40_000_000
 MAX_RESULT = 256 * 1024**2

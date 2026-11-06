@@ -464,7 +464,11 @@ class Executor:
         self.send_broadcast_data: bool = send_broadcast_data
         self.options: ExecutionOptions = options
         self._execution_fingerprint = service_fingerprint(chain, options)
-        self.node_cache: OutputCache[NodeOutput] = OutputCache(parent=parent_cache)
+        # A service snapshot must load current weights/settings instead of
+        # inheriting possibly stale individual-node previews from the GUI.
+        self.node_cache: OutputCache[NodeOutput] = OutputCache(
+            parent=None if self._execution_fingerprint else parent_cache
+        )
         self.__broadcast_tasks: list[asyncio.Task[None]] = []
         self.__context_cache: dict[str, _ExecutorNodeContext] = {}
 

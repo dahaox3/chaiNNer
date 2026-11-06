@@ -66,6 +66,8 @@ are an opt-in `Generator.streaming` flag, a read-only
 `NodeContext.execution_fingerprint` property, optional streaming progress data,
 and reliable cleanup after every execution exit. Existing node APIs default to
 their previous behavior. `api.Aborted` and the executor now share one exception.
+Service runs initialize the receiver once and reload static workflow inputs rather
+than reusing GUI preview caches, so a changed model file or precision is respected.
 
 Run `python -m pytest backend/tests/test_comicread.py -q`, normal backend tests,
 Ruff and frontend type/lint checks after merging. Optional CUDA checkpoint tests

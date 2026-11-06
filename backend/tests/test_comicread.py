@@ -15,6 +15,7 @@ import pytest
 import requests
 
 from api import ExecutionOptions, NodeId, SettingsParser, registry
+from chain.cache import OutputCache
 from chain.chain import FunctionNode
 from chain.json import parse_json
 from chain.service import service_fingerprint
@@ -27,7 +28,13 @@ from nodes.impl.comicread import (
     encode_image,
     return_image,
 )
-from process import ExecutionId, Executor, _ExecutorNodeContext, _IterationTimer
+from process import (
+    ExecutionId,
+    Executor,
+    RegularOutput,
+    _ExecutorNodeContext,
+    _IterationTimer,
+)
 from progress_controller import Aborted, ProgressController
 
 TOKEN = "comicread-test-token-0123456789"
@@ -262,6 +269,7 @@ async def test_executor_wait_pause_stop_and_port_release(
         EventQueue(),
         pool,
         tmp_path,
+        parent_cache=OutputCache(static_data={NodeId("return"): RegularOutput([])}),
     )
     task = asyncio.create_task(executor.run())
     try:
