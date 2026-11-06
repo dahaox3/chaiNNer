@@ -11,6 +11,10 @@ on:
             - '.github/workflows/gfisrv2.yml'
     workflow_dispatch:
 
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
     model-compatibility:
         runs-on: ubuntu-latest
@@ -34,4 +38,4 @@ jobs:
             - name: Verify model loading and inference without private weights
               run: python -m pytest backend/tests/test_gfisrv2.py -v
             - name: Check Spandrel API compatibility
-              run: python -m pyright --pythonpath python backend/src/nodes/impl/pytorch/gfisrv2.py
+              run: python -m pyright --pythonpath "$pythonLocation/bin/python" backend/src/nodes/impl/pytorch/gfisrv2.py
