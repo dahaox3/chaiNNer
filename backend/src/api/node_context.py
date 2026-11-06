@@ -133,6 +133,11 @@ class NodeContext(Progress, ABC):
     """
 
     @property
+    def execution_fingerprint(self) -> str:
+        """Stable workflow/model/options identity, available during full execution."""
+        return ""
+
+    @property
     @abstractmethod
     def settings(self) -> SettingsParser:
         """

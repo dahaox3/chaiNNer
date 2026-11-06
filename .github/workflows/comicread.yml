@@ -1,0 +1,30 @@
+name: ComicRead image bridge
+
+on:
+    push:
+        branches: [gfisrv2-support]
+    pull_request:
+        paths:
+            - 'backend/**'
+            - '.github/workflows/comicread.yml'
+    workflow_dispatch:
+
+jobs:
+    bridge:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                python-version: ['3.10', '3.12']
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ matrix.python-version }}
+            - name: Install CPU bridge test dependencies
+              run: python -m pip install pytest pytest-asyncio numpy==1.26.4 opencv-python-headless==4.8.0.76 Pillow==10.4.0 requests==2.28.2 typing_extensions chainner_ext==0.3.10 ruff==0.14.2
+            - name: Check backend style
+              run: |
+                  ruff check backend
+                  ruff format --check backend
+            - name: Exercise HTTP, cache and executor lifecycle
+              run: python -m pytest backend/tests/test_comicread.py -v

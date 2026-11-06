@@ -14,6 +14,12 @@ class Generator(Generic[I]):
     expected_length: int
     fail_fast: bool = True
     metadata: object | None = None
+    streaming: bool = False
+
+    def with_streaming(self):
+        """Opt in to interruptible threaded iteration with no known final length."""
+        self.streaming = True
+        return self
 
     def with_fail_fast(self, fail_fast: bool):
         self.fail_fast = fail_fast

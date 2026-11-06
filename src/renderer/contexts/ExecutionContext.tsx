@@ -79,6 +79,7 @@ export interface NodeProgress {
     eta: number;
     index: number;
     total: number;
+    streaming?: boolean;
 }
 
 interface ExecutionContextValue {

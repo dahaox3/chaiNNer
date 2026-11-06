@@ -34,16 +34,24 @@ const IteratorProcess = memo(({ nodeProgress, progressColor }: IteratorProcessPr
     const { t, i18n } = useTranslation();
     const { paused } = useContext(ExecutionStatusContext);
 
-    const { progress, eta, index, total } = nodeProgress;
+    const { progress, eta, index, total, streaming } = nodeProgress;
     const etaDate = new Date();
     etaDate.setSeconds(etaDate.getSeconds() + eta);
 
     // Custom progress (from context.set_progress()) has total === 0
     const isCustomProgress = total === 0;
+    let progressText = isCustomProgress
+        ? `${(progress * 100).toFixed(0)}%`
+        : `${index}/${total} (${(progress * 100).toFixed(0)}%)`;
+    if (streaming) {
+        progressText = t('node.imagesProcessed', '{{count}} processed', { count: index });
+    }
 
     let etaText;
     if (paused) {
         etaText = t('node.paused', 'Paused');
+    } else if (streaming) {
+        etaText = t('node.servingImages', 'Serving images');
     } else if (progress >= 1) {
         etaText = t('node.finished', 'Finished');
     } else if (isCustomProgress) {
@@ -78,9 +86,7 @@ const IteratorProcess = memo(({ nodeProgress, progressColor }: IteratorProcessPr
                         fontSize="sm"
                         fontWeight="medium"
                     >
-                        {isCustomProgress
-                            ? `${(progress * 100).toFixed(0)}%`
-                            : `${index}/${total} (${(progress * 100).toFixed(0)}%)`}
+                        {progressText}
                     </Text>
                     {etaText && (
                         <Text
@@ -101,7 +107,7 @@ const IteratorProcess = memo(({ nodeProgress, progressColor }: IteratorProcessPr
                     bgColor={progressColor}
                     h={6}
                     transition="all 0.15s ease-in-out"
-                    w={`${progress * 100}%`}
+                    w={streaming ? '100%' : `${progress * 100}%`}
                 />
             </Box>
         </Box>

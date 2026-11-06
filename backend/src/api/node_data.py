@@ -87,6 +87,8 @@ class IteratorOutputInfo:
         }
 
     def get_broadcast_sequence_type(self, generator: Generator) -> navi.ExpressionJson:
+        if generator.streaming:
+            return navi.named("Sequence", {"length": "uint"})
         return navi.named("Sequence", {"length": generator.expected_length})
 
     def get_broadcast_item_types(

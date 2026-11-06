@@ -7,6 +7,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Literal, TypedDict
 
+from typing_extensions import NotRequired
+
 import navi
 from api import BroadcastData, ErrorValue, InputId, IterOutputId, NodeId, OutputId
 
@@ -81,6 +83,7 @@ class NodeProgressData(TypedDict):
     index: int
     total: int
     eta: float
+    streaming: NotRequired[bool]
 
 
 class NodeProgressUpdateEvent(TypedDict):

@@ -2,9 +2,7 @@ import asyncio
 import time
 from abc import ABC, abstractmethod
 
-
-class Aborted(Exception):
-    pass
+from api.node_context import Aborted
 
 
 class ProgressToken(ABC):

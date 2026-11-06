@@ -34,12 +34,14 @@ from api import (
 from chain.cache import CacheStrategy, OutputCache, StaticCaching, get_cache_strategies
 from chain.chain import Chain, CollectorNode, FunctionNode, GeneratorNode, Node
 from chain.input import EdgeInput, Input, InputMap
+from chain.service import service_fingerprint
 from events import EventConsumer, InputsDict, NodeBroadcastData
 from logger import logger
 from progress_controller import Aborted, ProgressController, ProgressToken
 from util import combine_sets, timed_supplier
 
 Output = list[object]
+_STREAM_END = object()
 
 
 def collect_input_information(
@@ -268,8 +270,10 @@ class _Timer:
 
 
 class _IterationTimer:
-    def __init__(self, progress: ProgressController) -> None:
+    def __init__(self, progress: ProgressController, streaming: bool = False) -> None:
         self.times: list[float] = []
+        self._iterations = 0
+        self._streaming = streaming
         self.progress = progress
 
         self._start_time = time.monotonic()
@@ -280,7 +284,7 @@ class _IterationTimer:
 
     @property
     def iterations(self) -> int:
-        return len(self.times)
+        return self._iterations
 
     def get_time_since_start(self) -> float:
         now = time.monotonic()
@@ -295,6 +299,9 @@ class _IterationTimer:
 
         current_paused = max(0, paused - self._last_paused)
         self.times.append(now - self._last_time - current_paused)
+        self._iterations += 1
+        if self._streaming:
+            self.times = self.times[-100:]
 
         self._last_time = now
         self._last_paused = paused
@@ -372,6 +379,7 @@ class _ExecutorNodeContext(NodeContext):
         settings: SettingsParser,
         storage_dir: Path,
         send_progress: Callable[[NodeId, float], None] | None = None,
+        execution_fingerprint: str = "",
     ) -> None:
         super().__init__()
 
@@ -383,6 +391,11 @@ class _ExecutorNodeContext(NodeContext):
         self.node_cleanup_fns: set[Callable[[], None]] = set()
         self._send_progress_fn = send_progress
         self._current_node_id: NodeId | None = None
+        self._execution_fingerprint = execution_fingerprint
+
+    @property
+    def execution_fingerprint(self) -> str:
+        return self._execution_fingerprint
 
     def bind_node(self, node_id: NodeId) -> None:
         """Bind this context to a specific node for progress reporting."""
@@ -450,6 +463,7 @@ class Executor:
         self.inputs: InputMap = InputMap.from_chain(chain)
         self.send_broadcast_data: bool = send_broadcast_data
         self.options: ExecutionOptions = options
+        self._execution_fingerprint = service_fingerprint(chain, options)
         self.node_cache: OutputCache[NodeOutput] = OutputCache(parent=parent_cache)
         self.__broadcast_tasks: list[asyncio.Task[None]] = []
         self.__context_cache: dict[str, _ExecutorNodeContext] = {}
@@ -616,6 +630,7 @@ class Executor:
                 settings,
                 self._storage_dir,
                 send_progress=self.__send_custom_progress,
+                execution_fingerprint=self._execution_fingerprint,
             )
             self.__context_cache[node.data.schema_id] = context
 
@@ -655,7 +670,7 @@ class Executor:
         )
         await self.progress.suspend()
 
-        for fn in context.node_cleanup_fns:
+        for fn in tuple(context.node_cleanup_fns):
             try:
                 fn()
             except Exception as e:
@@ -751,6 +766,8 @@ class Executor:
 
         num_generators = len(generator_nodes)
         expected_lengths = {}
+        streaming_nodes: set[NodeId] = set()
+        streaming_outputs: dict[NodeId, GeneratorOutput] = {}
         collectors: list[tuple[Collector, _Timer, CollectorNode]] = []
         output_nodes: set[FunctionNode] = set()
         all_iterated_nodes: set[NodeId] = set()
@@ -791,11 +808,22 @@ class Executor:
 
             expected_length = generator_output.generator.expected_length
             expected_lengths[node.id] = expected_length
+            if generator_output.generator.streaming:
+                streaming_nodes.add(node.id)
+                streaming_outputs[node.id] = generator_output
 
-            iter_times = _IterationTimer(self.progress)
+            iter_times = _IterationTimer(
+                self.progress, streaming=generator_output.generator.streaming
+            )
             iter_timers[node.id] = iter_times
 
-            self.__send_node_progress(node, [], 0, expected_length)
+            self.__send_node_progress(
+                node,
+                [],
+                0,
+                expected_length,
+                streaming=generator_output.generator.streaming,
+            )
 
         # Assert that all expected lengths are the same
         if not len(set(expected_lengths.values())) <= 1:
@@ -811,10 +839,23 @@ class Executor:
             try:
                 # iterate each iterator
                 for node in generator_nodes:
-                    generator_output = await self.process_generator_node(node)
+                    # Stateful service generators must initialize exactly once,
+                    # even if the ordinary output cache has a zero-use strategy.
+                    generator_output = streaming_outputs.get(node.id)
+                    if generator_output is None:
+                        generator_output = await self.process_generator_node(node)
                     generator_supplier = generator_suppliers[node.id]
 
-                    values = next(generator_supplier)
+                    if generator_output.generator.streaming:
+                        values = await self.loop.run_in_executor(
+                            self.pool,
+                            functools.partial(next, generator_supplier, _STREAM_END),
+                        )
+                        if values is _STREAM_END:
+                            raise StopIteration
+                        values = typing.cast("Output | Exception", values)
+                    else:
+                        values = next(generator_supplier)
 
                     # Check if the generator yielded an exception
                     if isinstance(values, Exception):
@@ -847,6 +888,12 @@ class Executor:
 
                 self.node_cache.delete_many(all_iterated_nodes)
 
+                if streaming_nodes:
+                    # A long-running stream must not retain every completed preview task.
+                    broadcasts = self.__broadcast_tasks
+                    self.__broadcast_tasks = []
+                    await asyncio.gather(*broadcasts)
+
                 await self.progress.suspend()
                 for node in generator_nodes:
                     iter_times = iter_timers[node.id]
@@ -857,6 +904,7 @@ class Executor:
                         iter_times.times,
                         iterations,
                         max(expected_lengths[node.id], iterations),
+                        streaming=node.id in streaming_nodes,
                     )
                 # cooperative yield so the event loop can run
                 # https://stackoverflow.com/questions/36647825/cooperative-yield-in-asyncio
@@ -878,7 +926,9 @@ class Executor:
         # reset cached value
         self.node_cache.delete_many(all_iterated_nodes)
         for node in generator_nodes:
-            generator_output = await self.process_generator_node(node)
+            generator_output = streaming_outputs.get(node.id)
+            if generator_output is None:
+                generator_output = await self.process_generator_node(node)
             self.node_cache.set(node.id, generator_output, self.cache_strategy[node.id])
 
             # re-broadcast final value
@@ -965,25 +1015,38 @@ class Executor:
         # clear cache after the chain is done
         self.node_cache.clear()
 
-        # Run cleanup functions
-        for context in self.__context_cache.values():
-            for fn in context.chain_cleanup_fns:
-                try:
-                    fn()
-                except Exception as e:
-                    logger.error("Error running cleanup function: %s", e)
-
         # await all broadcasts
         tasks = self.__broadcast_tasks
         self.__broadcast_tasks = []
         for task in tasks:
             await task
 
+    def __cleanup(self):
+        # Always release node resources, including after Stop and node failures.
+        for context in self.__context_cache.values():
+            for fn in tuple(context.chain_cleanup_fns | context.node_cleanup_fns):
+                try:
+                    fn()
+                except Exception as e:
+                    logger.error("Error running cleanup function: %s", e)
+
+            context.chain_cleanup_fns.clear()
+            context.node_cleanup_fns.clear()
+
     async def run(self):
         logger.debug("Running executor %s", self.id)
         try:
             await self.__process_nodes()
         finally:
+            # Streaming suppliers poll this token; wake them before closing sockets.
+            self.progress.abort()
+            self.__cleanup()
+            self.node_cache.clear()
+            broadcasts = self.__broadcast_tasks
+            self.__broadcast_tasks = []
+            for broadcast in broadcasts:
+                broadcast.cancel()
+            await asyncio.gather(*broadcasts, return_exceptions=True)
             gc.collect()
 
     def resume(self):
@@ -1026,7 +1089,12 @@ class Executor:
         )
 
     def __send_node_progress(
-        self, node: Node, times: Sequence[float], index: int, length: int
+        self,
+        node: Node,
+        times: Sequence[float],
+        index: int,
+        length: int,
+        streaming: bool = False,
     ):
         def get_eta(times: Sequence[float]) -> float:
             avg_time = 0
@@ -1048,10 +1116,13 @@ class Executor:
                 "event": "node-progress",
                 "data": {
                     "nodeId": node.id,
-                    "progress": 1 if length == 0 else index / length,
+                    "progress": 0
+                    if streaming
+                    else (1 if length == 0 else index / length),
                     "index": index,
-                    "total": length,
-                    "eta": get_eta(times),
+                    "total": 0 if streaming else length,
+                    "eta": 0 if streaming else get_eta(times),
+                    "streaming": streaming,
                 },
             }
         )

@@ -213,7 +213,9 @@
         "eta": "预计时间：",
         "outdated": "过时",
         "paused": "已暂停",
-        "finished": "已完成"
+        "finished": "已完成",
+        "servingImages": "正在接收图片",
+        "imagesProcessed": "已处理 {{count}} 张"
     },
     "timer": {
         "executionTook": "执行大约花费了 {{duration}}。"
