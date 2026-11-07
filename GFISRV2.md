@@ -120,3 +120,7 @@ checkpoints and preserves FP32 FFT behavior in FP16 mode, run the local node
 tests with it, remove the vendored adapter and its loader registration, and
 retain regression coverage. This avoids maintaining a second architecture
 implementation indefinitely.
+# Additional architectures
+
+This branch also supports FIGSR and SMoSR. See [ENHANCR.md](ENHANCR.md)
+for supported checkpoint variants, precision and maintenance instructions.

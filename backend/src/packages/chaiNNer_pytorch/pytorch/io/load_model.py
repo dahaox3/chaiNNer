@@ -8,6 +8,7 @@ from spandrel_extra_arches import EXTRA_REGISTRY
 
 from api import NodeContext
 from logger import logger
+from nodes.impl.pytorch.enhancr import register_enhancr
 from nodes.impl.pytorch.gfisrv2 import register_gfisrv2
 from nodes.properties.inputs import PthFileInput
 from nodes.properties.outputs import DirectoryOutput, FileNameOutput, ModelOutput
@@ -18,6 +19,7 @@ from .. import io_group
 
 MAIN_REGISTRY.add(*EXTRA_REGISTRY)
 register_gfisrv2()
+register_enhancr()
 
 
 def parse_ckpt_state_dict(checkpoint: dict):

@@ -1,4 +1,4 @@
-name: GFISRv2 compatibility
+name: Local SR architecture compatibility
 
 on:
     push:
@@ -8,6 +8,7 @@ on:
             - 'backend/src/nodes/impl/pytorch/**'
             - 'backend/src/packages/chaiNNer_pytorch/**'
             - 'backend/tests/test_gfisrv2.py'
+            - 'backend/tests/test_enhancr.py'
             - '.github/workflows/gfisrv2.yml'
     workflow_dispatch:
 
@@ -33,9 +34,9 @@ jobs:
               run: python -m pip install spandrel==0.4.1 pytest ruff==0.14.2 pyright==1.1.338
             - name: Check maintained integration code
               run: |
-                  ruff check backend/src/nodes/impl/pytorch/gfisrv2.py backend/tests/test_gfisrv2.py backend/src/packages/chaiNNer_pytorch/pytorch/io/load_model.py
-                  ruff format --check backend/src/nodes/impl/pytorch/gfisrv2.py backend/tests/test_gfisrv2.py backend/src/packages/chaiNNer_pytorch/pytorch/io/load_model.py
+                  ruff check backend/src/nodes/impl/pytorch/gfisrv2.py backend/src/nodes/impl/pytorch/enhancr.py backend/tests/test_gfisrv2.py backend/tests/test_enhancr.py backend/src/packages/chaiNNer_pytorch/pytorch/io/load_model.py
+                  ruff format --check backend/src/nodes/impl/pytorch/gfisrv2.py backend/src/nodes/impl/pytorch/enhancr.py backend/tests/test_gfisrv2.py backend/tests/test_enhancr.py backend/src/packages/chaiNNer_pytorch/pytorch/io/load_model.py
             - name: Verify model loading and inference without private weights
-              run: python -m pytest backend/tests/test_gfisrv2.py -v
+              run: python -m pytest backend/tests/test_gfisrv2.py backend/tests/test_enhancr.py -v
             - name: Check Spandrel API compatibility
-              run: python -m pyright --pythonpath "$pythonLocation/bin/python" backend/src/nodes/impl/pytorch/gfisrv2.py
+              run: python -m pyright --pythonpath "$pythonLocation/bin/python" backend/src/nodes/impl/pytorch/gfisrv2.py backend/src/nodes/impl/pytorch/enhancr.py
