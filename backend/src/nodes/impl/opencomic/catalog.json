@@ -1,0 +1,1444 @@
+{
+  "revision": "ca1c17faabcb029a14b8bcabfc864227d6b9e2b2",
+  "models": {
+    "artifact-removal": {
+      "opencomic-ai-artifact-removal-balanced-v3-ps": {
+        "name": "OpenComic AI Artifact Removal Balanced v3",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-balanced-v3-ps.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-balanced-v3-ps.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-quality-v3-ps": {
+        "name": "OpenComic AI Artifact Removal Quality v3",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-quality-v3-ps.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-quality-v3-ps.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-compact-v2": {
+        "name": "OpenComic AI Artifact Removal Fast v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-compact-v2.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-compact-v2.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-lite-v2": {
+        "name": "OpenComic AI Artifact Removal Balanced v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-lite-v2.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-lite-v2.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-v2": {
+        "name": "OpenComic AI Artifact Removal Quality v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-v2.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-v2.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-compact": {
+        "name": "OpenComic AI Artifact Removal Fast",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-compact.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-compact.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal-lite": {
+        "name": "OpenComic AI Artifact Removal Balanced",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal-lite.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal-lite.param"
+        ]
+      },
+      "opencomic-ai-artifact-removal": {
+        "name": "OpenComic AI Artifact Removal Quality",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/opencomic-ai-artifact-removal.bin",
+          "artifact-removal/models/opencomic-ai-artifact-removal.param"
+        ]
+      },
+      "1x_NMKD-Jaywreck3-Lite_320k": {
+        "name": "NMKD Jaywreck3 Lite",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/1x_NMKD-Jaywreck3-Lite_320k.bin",
+          "artifact-removal/models/1x_NMKD-Jaywreck3-Lite_320k.param"
+        ]
+      },
+      "1x_NMKD-Jaywreck3-Soft-Lite_320k": {
+        "name": "NMKD Jaywreck3 Soft Lite",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/1x_NMKD-Jaywreck3-Soft-Lite_320k.bin",
+          "artifact-removal/models/1x_NMKD-Jaywreck3-Soft-Lite_320k.param"
+        ]
+      },
+      "1x-SaiyaJin-DeJpeg": {
+        "name": "SaiyaJin DeJpeg",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/1x-SaiyaJin-DeJpeg.bin",
+          "artifact-removal/models/1x-SaiyaJin-DeJpeg.param"
+        ]
+      },
+      "1x_JPEGDestroyerV2_96000G": {
+        "name": "JPEG Destroyer V2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "artifact-removal/models/1x_JPEGDestroyerV2_96000G.bin",
+          "artifact-removal/models/1x_JPEGDestroyerV2_96000G.param"
+        ]
+      }
+    },
+    "descreen": {
+      "opencomic-ai-descreen-hard-fast-v4-preview": {
+        "name": "OpenComic AI Descreen Hard Fast v4 Preview",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-fast-v4-preview.bin",
+          "descreen/models/opencomic-ai-descreen-hard-fast-v4-preview.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-balanced-v4-preview": {
+        "name": "OpenComic AI Descreen Hard Balanced v4 Preview",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-balanced-v4-preview.bin",
+          "descreen/models/opencomic-ai-descreen-hard-balanced-v4-preview.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-fast-v3-256": {
+        "name": "OpenComic AI Descreen Hard Fast v3",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-fast-v3-256.bin",
+          "descreen/models/opencomic-ai-descreen-hard-fast-v3-256.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-balanced-v3-256": {
+        "name": "OpenComic AI Descreen Hard Balanced v3",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-balanced-v3-256.bin",
+          "descreen/models/opencomic-ai-descreen-hard-balanced-v3-256.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-compact-v2": {
+        "name": "OpenComic AI Descreen Hard Fast v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-compact-v2.bin",
+          "descreen/models/opencomic-ai-descreen-hard-compact-v2.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-lite-v2": {
+        "name": "OpenComic AI Descreen Hard Balanced v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-lite-v2.bin",
+          "descreen/models/opencomic-ai-descreen-hard-lite-v2.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-v2": {
+        "name": "OpenComic AI Descreen Hard Quality v2",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-v2.bin",
+          "descreen/models/opencomic-ai-descreen-hard-v2.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-compact": {
+        "name": "OpenComic AI Descreen Hard Fast",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-compact.bin",
+          "descreen/models/opencomic-ai-descreen-hard-compact.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard-lite": {
+        "name": "OpenComic AI Descreen Hard Balanced",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard-lite.bin",
+          "descreen/models/opencomic-ai-descreen-hard-lite.param"
+        ]
+      },
+      "opencomic-ai-descreen-hard": {
+        "name": "OpenComic AI Descreen Hard Quality",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/opencomic-ai-descreen-hard.bin",
+          "descreen/models/opencomic-ai-descreen-hard.param"
+        ]
+      },
+      "1x_halftone_patch_060000_G": {
+        "name": "Halftone Patch 060000 G",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/1x_halftone_patch_060000_G.bin",
+          "descreen/models/1x_halftone_patch_060000_G.param"
+        ]
+      },
+      "1x_wtp_descreenton_compact": {
+        "name": "WTP DescreenTon Compact",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen/models/1x_wtp_descreenton_compact.bin",
+          "descreen/models/1x_wtp_descreenton_compact.param"
+        ]
+      }
+    },
+    "descreen-mask": {
+      "opencomic-ai-descreen-mask-fast-v3-256": {
+        "name": "OpenComic AI Descreen Mask Fast v3",
+        "scales": [
+          1
+        ],
+        "files": [
+          "descreen-mask/models/opencomic-ai-descreen-mask-fast-v3-256.bin",
+          "descreen-mask/models/opencomic-ai-descreen-mask-fast-v3-256.param"
+        ]
+      }
+    },
+    "upscale": {
+      "opencomic-ai-upscale-fast-v3": {
+        "name": "OpenComic AI Upscale Fast v3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-fast-v3.bin",
+          "upscale/models/opencomic-ai-upscale-2x-fast-v3.param",
+          "upscale/models/opencomic-ai-upscale-3x-fast-v3.bin",
+          "upscale/models/opencomic-ai-upscale-3x-fast-v3.param",
+          "upscale/models/opencomic-ai-upscale-4x-fast-v3.bin",
+          "upscale/models/opencomic-ai-upscale-4x-fast-v3.param"
+        ]
+      },
+      "opencomic-ai-upscale-balanced-v3": {
+        "name": "OpenComic AI Upscale Balanced v3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-balanced-v3.bin",
+          "upscale/models/opencomic-ai-upscale-2x-balanced-v3.param",
+          "upscale/models/opencomic-ai-upscale-3x-balanced-v3.bin",
+          "upscale/models/opencomic-ai-upscale-3x-balanced-v3.param",
+          "upscale/models/opencomic-ai-upscale-4x-balanced-v3.bin",
+          "upscale/models/opencomic-ai-upscale-4x-balanced-v3.param"
+        ]
+      },
+      "opencomic-ai-upscale-compact-v2": {
+        "name": "OpenComic AI Upscale Fast v2",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-compact-v2.bin",
+          "upscale/models/opencomic-ai-upscale-2x-compact-v2.param",
+          "upscale/models/opencomic-ai-upscale-3x-compact-v2.bin",
+          "upscale/models/opencomic-ai-upscale-3x-compact-v2.param",
+          "upscale/models/opencomic-ai-upscale-4x-compact-v2.bin",
+          "upscale/models/opencomic-ai-upscale-4x-compact-v2.param"
+        ]
+      },
+      "opencomic-ai-upscale-lite-v2": {
+        "name": "OpenComic AI Upscale Balanced v2",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-lite-v2.bin",
+          "upscale/models/opencomic-ai-upscale-2x-lite-v2.param",
+          "upscale/models/opencomic-ai-upscale-3x-lite-v2.bin",
+          "upscale/models/opencomic-ai-upscale-3x-lite-v2.param",
+          "upscale/models/opencomic-ai-upscale-4x-lite-v2.bin",
+          "upscale/models/opencomic-ai-upscale-4x-lite-v2.param"
+        ]
+      },
+      "opencomic-ai-upscale-v2": {
+        "name": "OpenComic AI Upscale Quality v2",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-v2.bin",
+          "upscale/models/opencomic-ai-upscale-2x-v2.param",
+          "upscale/models/opencomic-ai-upscale-3x-v2.bin",
+          "upscale/models/opencomic-ai-upscale-3x-v2.param",
+          "upscale/models/opencomic-ai-upscale-4x-v2.bin",
+          "upscale/models/opencomic-ai-upscale-4x-v2.param"
+        ]
+      },
+      "opencomic-ai-upscale-compact": {
+        "name": "OpenComic AI Upscale Fast",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-compact.bin",
+          "upscale/models/opencomic-ai-upscale-2x-compact.param",
+          "upscale/models/opencomic-ai-upscale-3x-compact.bin",
+          "upscale/models/opencomic-ai-upscale-3x-compact.param",
+          "upscale/models/opencomic-ai-upscale-4x-compact.bin",
+          "upscale/models/opencomic-ai-upscale-4x-compact.param"
+        ]
+      },
+      "opencomic-ai-upscale-lite": {
+        "name": "OpenComic AI Upscale Balanced",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x-lite.bin",
+          "upscale/models/opencomic-ai-upscale-2x-lite.param",
+          "upscale/models/opencomic-ai-upscale-3x-lite.bin",
+          "upscale/models/opencomic-ai-upscale-3x-lite.param",
+          "upscale/models/opencomic-ai-upscale-4x-lite.bin",
+          "upscale/models/opencomic-ai-upscale-4x-lite.param"
+        ]
+      },
+      "opencomic-ai-upscale": {
+        "name": "OpenComic AI Upscale Quality",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/opencomic-ai-upscale-2x.bin",
+          "upscale/models/opencomic-ai-upscale-2x.param",
+          "upscale/models/opencomic-ai-upscale-3x.bin",
+          "upscale/models/opencomic-ai-upscale-3x.param",
+          "upscale/models/opencomic-ai-upscale-4x.bin",
+          "upscale/models/opencomic-ai-upscale-4x.param"
+        ]
+      },
+      "realcugan": {
+        "name": "RealCUGAN",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "noise": [
+          -1,
+          0,
+          3
+        ],
+        "files": [
+          "upscale/realcugan/models/up2x-conservative.bin",
+          "upscale/realcugan/models/up2x-conservative.param",
+          "upscale/realcugan/models/up2x-denoise3x.bin",
+          "upscale/realcugan/models/up2x-denoise3x.param",
+          "upscale/realcugan/models/up2x-no-denoise.bin",
+          "upscale/realcugan/models/up2x-no-denoise.param",
+          "upscale/realcugan/models/up3x-conservative.bin",
+          "upscale/realcugan/models/up3x-conservative.param",
+          "upscale/realcugan/models/up3x-denoise3x.bin",
+          "upscale/realcugan/models/up3x-denoise3x.param",
+          "upscale/realcugan/models/up3x-no-denoise.bin",
+          "upscale/realcugan/models/up3x-no-denoise.param",
+          "upscale/realcugan/models/up4x-conservative.bin",
+          "upscale/realcugan/models/up4x-conservative.param",
+          "upscale/realcugan/models/up4x-denoise3x.bin",
+          "upscale/realcugan/models/up4x-denoise3x.param",
+          "upscale/realcugan/models/up4x-no-denoise.bin",
+          "upscale/realcugan/models/up4x-no-denoise.param"
+        ]
+      },
+      "realesr-animevideov3": {
+        "name": "RealESR AnimeVideo v3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/realesr-animevideov3-x2.bin",
+          "upscale/models/realesr-animevideov3-x2.param",
+          "upscale/models/realesr-animevideov3-x3.bin",
+          "upscale/models/realesr-animevideov3-x3.param",
+          "upscale/models/realesr-animevideov3-x4.bin",
+          "upscale/models/realesr-animevideov3-x4.param"
+        ]
+      },
+      "realesrgan-x4plus": {
+        "name": "RealESRGAN x4 Plus",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/realesrgan-x4plus.bin",
+          "upscale/models/realesrgan-x4plus.param"
+        ]
+      },
+      "realesrgan-x4plus-anime": {
+        "name": "RealESRGAN x4 Plus Anime",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/realesrgan-x4plus-anime.bin",
+          "upscale/models/realesrgan-x4plus-anime.param"
+        ]
+      },
+      "realesrnet-x4plus": {
+        "name": "RealESRNet x4 Plus",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/realesrnet-x4plus.bin",
+          "upscale/models/realesrnet-x4plus.param"
+        ]
+      },
+      "waifu2x-models-cunet": {
+        "name": "Waifu2x CUnet",
+        "scales": [
+          2,
+          4,
+          8
+        ],
+        "noise": [
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "files": [
+          "upscale/waifu2x/models/waifu2x-cunet-noise0_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-cunet-noise0_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-cunet-noise1_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-cunet-noise1_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-cunet-noise2_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-cunet-noise2_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-cunet-noise3_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-cunet-noise3_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-cunet-scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-cunet-scale2.0x_model.param"
+        ]
+      },
+      "waifu2x-models-upconv": {
+        "name": "Waifu2x UpConv",
+        "scales": [
+          2,
+          4,
+          8
+        ],
+        "noise": [
+          -1,
+          0,
+          1,
+          2,
+          3
+        ],
+        "files": [
+          "upscale/waifu2x/models/waifu2x-upconv-noise0_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-upconv-noise0_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-upconv-noise1_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-upconv-noise1_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-upconv-noise2_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-upconv-noise2_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-upconv-noise3_scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-upconv-noise3_scale2.0x_model.param",
+          "upscale/waifu2x/models/waifu2x-upconv-scale2.0x_model.bin",
+          "upscale/waifu2x/models/waifu2x-upconv-scale2.0x_model.param"
+        ]
+      },
+      "4x-WTP-ColorDS": {
+        "name": "WTP ColorDS",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4x-WTP-ColorDS.bin",
+          "upscale/models/4x-WTP-ColorDS.param"
+        ]
+      },
+      "remacri-4x": {
+        "name": "Remacri",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/remacri-4x.bin",
+          "upscale/models/remacri-4x.param"
+        ]
+      },
+      "ultramix-balanced-4x": {
+        "name": "Ultramix Balanced",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/ultramix-balanced-4x.bin",
+          "upscale/models/ultramix-balanced-4x.param"
+        ]
+      },
+      "ultrasharp-4x": {
+        "name": "Ultrasharp",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/ultrasharp-4x.bin",
+          "upscale/models/ultrasharp-4x.param"
+        ]
+      },
+      "4xInt-RemAnime": {
+        "name": "Int-RemAnime",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xInt-RemAnime.bin",
+          "upscale/models/4xInt-RemAnime.param"
+        ]
+      },
+      "AI-Forever_x4plus": {
+        "name": "AI-Forever x4plus",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/AI-Forever_x4plus.bin",
+          "upscale/models/AI-Forever_x4plus.param"
+        ]
+      },
+      "4xNomosWebPhoto_esrgan": {
+        "name": "Nomos Web Photo ESRGAN",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xNomosWebPhoto_esrgan.bin",
+          "upscale/models/4xNomosWebPhoto_esrgan.param"
+        ]
+      },
+      "4xHFA2k": {
+        "name": "HFA2k",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xHFA2k.bin",
+          "upscale/models/4xHFA2k.param"
+        ]
+      },
+      "4xLSDIRCompactC3": {
+        "name": "LSDIR Compact C3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xLSDIRCompactC3.bin",
+          "upscale/models/4xLSDIRCompactC3.param"
+        ]
+      },
+      "4xLSDIRplusC": {
+        "name": "LSDIR Plus C",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xLSDIRplusC.bin",
+          "upscale/models/4xLSDIRplusC.param"
+        ]
+      },
+      "4x_NMKD-Siax_200k": {
+        "name": "NMKD Siax",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4x_NMKD-Siax_200k.bin",
+          "upscale/models/4x_NMKD-Siax_200k.param"
+        ]
+      },
+      "4xNomos8kSC": {
+        "name": "Nomos 8k SC",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/4xNomos8kSC.bin",
+          "upscale/models/4xNomos8kSC.param"
+        ]
+      },
+      "RealESRGAN_General_WDN_x4_v3": {
+        "name": "RealESRGAN General WDN v3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/RealESRGAN_General_WDN_x4_v3.bin",
+          "upscale/models/RealESRGAN_General_WDN_x4_v3.param"
+        ]
+      },
+      "RealESRGAN_General_x4_v3": {
+        "name": "RealESRGAN General v3",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/RealESRGAN_General_x4_v3.bin",
+          "upscale/models/RealESRGAN_General_x4_v3.param"
+        ]
+      },
+      "uniscale_restore_x4": {
+        "name": "Uniscale Restore x4",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/uniscale_restore_x4.bin",
+          "upscale/models/uniscale_restore_x4.param"
+        ]
+      },
+      "unknown-2.0.1": {
+        "name": "Unknown 2.0.1",
+        "scales": [
+          2,
+          3,
+          4
+        ],
+        "files": [
+          "upscale/models/unknown-2.0.1.bin",
+          "upscale/models/unknown-2.0.1.param"
+        ]
+      }
+    }
+  },
+  "files": {
+    "artifact-removal/models/opencomic-ai-artifact-removal-balanced-v3-ps.bin": [
+      8435508,
+      "1a821ec6018e69f70b6d2ef051eecaa21aeb2458"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-balanced-v3-ps.param": [
+      34114,
+      "7943c54c5da021cff5b68c4e7e6512a0f2f24aef"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-quality-v3-ps.bin": [
+      65367188,
+      "6659d4089a5ff09e766bf13dbc7103c644bc813a"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-quality-v3-ps.param": [
+      68861,
+      "a348af8908819de82722b313b48f54396bb0806e"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-compact-v2.bin": [
+      1195348,
+      "866853da7df78c7383a98814f27da835be3bc4ce"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-compact-v2.param": [
+      2875,
+      "39e983c6e754d3e362a70ce30106b095f20d1f7e"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-lite-v2.bin": [
+      10017772,
+      "e401d6d8133f5c40f092ebe87549d706f847384f"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-lite-v2.param": [
+      45640,
+      "c07d9ebfd437f69de75389c9b1bcc11e8791c248"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-v2.bin": [
+      33276544,
+      "f9dbed3e9fc601de7a81696c75349ec845e38e19"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-v2.param": [
+      88991,
+      "52093a2d9fcf09726ee7b045537c3a73345c1ede"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-compact.bin": [
+      1195348,
+      "8c637274bd289f3767ef17e9e3ed93d0a77b67dc"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-compact.param": [
+      3801,
+      "7cc386347abcc2db256ec68e988e1617c5b2193e"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-lite.bin": [
+      10017772,
+      "92be1d921f2e1d0f37b651ce78d437b5015d5b79"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal-lite.param": [
+      85780,
+      "b2db2588defb72b774906658a98bb0979fe2ca31"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal.bin": [
+      33276544,
+      "9c02bf0a59ec4d8b877fb76221ec8ac4ae2b6f74"
+    ],
+    "artifact-removal/models/opencomic-ai-artifact-removal.param": [
+      165057,
+      "eb83b8b6f103a14913715c170771f1ee74a40028"
+    ],
+    "artifact-removal/models/1x_NMKD-Jaywreck3-Lite_320k.bin": [
+      10017772,
+      "cbd41064092a6f81fa91f999b248a2e2a58f7ec9"
+    ],
+    "artifact-removal/models/1x_NMKD-Jaywreck3-Lite_320k.param": [
+      85780,
+      "b2db2588defb72b774906658a98bb0979fe2ca31"
+    ],
+    "artifact-removal/models/1x_NMKD-Jaywreck3-Soft-Lite_320k.bin": [
+      10017772,
+      "6fc409459fe3d7f9d6457dbd64df2d0a154c049e"
+    ],
+    "artifact-removal/models/1x_NMKD-Jaywreck3-Soft-Lite_320k.param": [
+      85780,
+      "b2db2588defb72b774906658a98bb0979fe2ca31"
+    ],
+    "artifact-removal/models/1x-SaiyaJin-DeJpeg.bin": [
+      33276544,
+      "a246a070a09aac491df0e61cb0666fcbf28b8aaf"
+    ],
+    "artifact-removal/models/1x-SaiyaJin-DeJpeg.param": [
+      165057,
+      "eb83b8b6f103a14913715c170771f1ee74a40028"
+    ],
+    "artifact-removal/models/1x_JPEGDestroyerV2_96000G.bin": [
+      33276544,
+      "8927adffbf509c7028b243f8fa3af6fa35b5bf7b"
+    ],
+    "artifact-removal/models/1x_JPEGDestroyerV2_96000G.param": [
+      165057,
+      "eb83b8b6f103a14913715c170771f1ee74a40028"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-fast-v4-preview.bin": [
+      20518012,
+      "46e858a1ef0efed1ce495aaa1d6d7c998b58f4c8"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-fast-v4-preview.param": [
+      113907,
+      "4a11360a8042ab2d428640414ffe8913894eccee"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-balanced-v4-preview.bin": [
+      17308696,
+      "81b3c528282a4165af48aa2bfd23e319996e2577"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-balanced-v4-preview.param": [
+      72475,
+      "dd31d062c772cfb4a6aa3fe78aea1a2e35ae44c1"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-fast-v3-256.bin": [
+      1426400,
+      "4a379004a12dc25e4f57ce65b04563069f3bff29"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-fast-v3-256.param": [
+      22760,
+      "ac0088c91aa7617a39816cab17a3a993fdf52bd1"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-balanced-v3-256.bin": [
+      8331648,
+      "5866891e04fe4fabc12c3b0f8a4bd8c683ba9f97"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-balanced-v3-256.param": [
+      33979,
+      "daba25137cf0a3c55578f806697a27e6c962411a"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-compact-v2.bin": [
+      1195348,
+      "dedd86e673dacc21d063d28fab5bb0708e69e66a"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-compact-v2.param": [
+      2875,
+      "39e983c6e754d3e362a70ce30106b095f20d1f7e"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-lite-v2.bin": [
+      10017772,
+      "0feed8e07cf18f83d795baadc1dd5d0b23705662"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-lite-v2.param": [
+      45640,
+      "c07d9ebfd437f69de75389c9b1bcc11e8791c248"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-v2.bin": [
+      33276544,
+      "2dff1bd435f521a4b4d611bcb9403747944adf54"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-v2.param": [
+      88991,
+      "52093a2d9fcf09726ee7b045537c3a73345c1ede"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-compact.bin": [
+      1195348,
+      "8359df6a022374d3ae73f84aafb17e5e850fa62d"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-compact.param": [
+      3801,
+      "7cc386347abcc2db256ec68e988e1617c5b2193e"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-lite.bin": [
+      10017772,
+      "5ec16149f3619f3709f499ae0f8fd90fd66a972d"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard-lite.param": [
+      85780,
+      "b2db2588defb72b774906658a98bb0979fe2ca31"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard.bin": [
+      33276544,
+      "59f623d8b9ae18f0c9e11abd5cad97d0a382cdb7"
+    ],
+    "descreen/models/opencomic-ai-descreen-hard.param": [
+      165057,
+      "eb83b8b6f103a14913715c170771f1ee74a40028"
+    ],
+    "descreen/models/1x_halftone_patch_060000_G.bin": [
+      33276544,
+      "49ae3a8062b10ad8379bc95e2dbe8de6649d365b"
+    ],
+    "descreen/models/1x_halftone_patch_060000_G.param": [
+      165057,
+      "eb83b8b6f103a14913715c170771f1ee74a40028"
+    ],
+    "descreen/models/1x_wtp_descreenton_compact.bin": [
+      1195348,
+      "a32403744e6e36fe60c0fcf1463c1bfaa99beced"
+    ],
+    "descreen/models/1x_wtp_descreenton_compact.param": [
+      3801,
+      "7cc386347abcc2db256ec68e988e1617c5b2193e"
+    ],
+    "descreen-mask/models/opencomic-ai-descreen-mask-fast-v3-256.bin": [
+      1426400,
+      "45b636ac76986aeeb8270b9d185159d3464c02ef"
+    ],
+    "descreen-mask/models/opencomic-ai-descreen-mask-fast-v3-256.param": [
+      22760,
+      "ac0088c91aa7617a39816cab17a3a993fdf52bd1"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-fast-v3.bin": [
+      1431620,
+      "b40aca568ee7dcf910244cad5cadf2d32297fab3"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-fast-v3.param": [
+      22924,
+      "c7133e8bae2099869a177be55a1543121d723a41"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-fast-v3.bin": [
+      1440320,
+      "c6d0f5b06a7fa45934f96a43e05d41ef465be062"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-fast-v3.param": [
+      22924,
+      "c6e6bff9802c5d73ebdbf2e7923e194c0a52d2f9"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-fast-v3.bin": [
+      1452500,
+      "b1ebc6ba0f613c71ead2c4ce75227bf946d4444c"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-fast-v3.param": [
+      22925,
+      "b433b712df83e14b8ead544927ecc58b6352bacd"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-balanced-v3.bin": [
+      8342052,
+      "bef0af5245979294b6c2bc3f253c8ee35d56ff53"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-balanced-v3.param": [
+      34142,
+      "ec36a03dedd62e519cf9d17a36f1f8a2439626fc"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-balanced-v3.bin": [
+      8359392,
+      "25cef85b6d3039463681ac4e37e2d9e4b223a70a"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-balanced-v3.param": [
+      34143,
+      "91f410993a79c61c2ce6ef010e5be43ccdbc2ba0"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-balanced-v3.bin": [
+      8383668,
+      "148d6e9ee4770b283988c00d3f6b6d43a9e08d03"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-balanced-v3.param": [
+      34143,
+      "f1c9d4d7e68a5b676d339f31111ad4d11b60478d"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-compact-v2.bin": [
+      1205752,
+      "9fd4a4d2717da6cbd56072c3a13ca4cc2ddf595d"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-compact-v2.param": [
+      2974,
+      "97a9d5dd2e6142dfe025e90b8499257559a53af3"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-compact-v2.bin": [
+      1223092,
+      "b013fa4e9a9a741acaee0392c790e3ba3313bdf5"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-compact-v2.param": [
+      2975,
+      "642995da9ce79fb816db855d267cef1bb8103a98"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-compact-v2.bin": [
+      1247368,
+      "ce29ce5a1d46ca95bb3347f9faf67bf99e4d5b82"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-compact-v2.param": [
+      2975,
+      "a95fd308231373667f1a458ef17d872b6e31a397"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-lite-v2.bin": [
+      10036336,
+      "f5cd9c83d2c5c3316bab08b8fa604fe552da8494"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-lite-v2.param": [
+      45848,
+      "12927d3b6aefc56ef70a8ec891f19b93c32d1380"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-lite-v2.bin": [
+      10036336,
+      "7712184dc2ac0b2dcc422478e523787fde549856"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-lite-v2.param": [
+      45848,
+      "3479d14b0d01fbe22cd5a626a38aeccd48a2bf3e"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-lite-v2.bin": [
+      10054900,
+      "0d9d1dbad74d6f04e2a5a2301869cdd6c13a0bb1"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-lite-v2.param": [
+      46056,
+      "d8b3772adc3b6eaa6dba4148b02184356bb81ba1"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-v2.bin": [
+      33350532,
+      "9ba69b1d4f17f1f429d7785a2a02de6963b697ef"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-v2.param": [
+      89204,
+      "cd55bb86068a4cabf2e5fdf811fa507576cb9e60"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-v2.bin": [
+      33350532,
+      "25c4ace59642ed509f1c4fbaff01b991224cbf99"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-v2.param": [
+      89204,
+      "848d580dd420aaee599d49db503a4081c9b390ee"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-v2.bin": [
+      33424520,
+      "4c2d86be2d38b4dc166f62df20fc628a60b6d5b1"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-v2.param": [
+      89417,
+      "043bc8a8588f76c188ec199dfdad66e2209e005b"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-compact.bin": [
+      1205752,
+      "3231468f87e2a7b082867278029c263bb3a93c4e"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-compact.param": [
+      3836,
+      "08ec644fbbb4495ec96e6cf0486c12703360681f"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-compact.bin": [
+      1223092,
+      "3cc2a5b42295b3013fdf6cb30a511a867e42565f"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-compact.param": [
+      2975,
+      "642995da9ce79fb816db855d267cef1bb8103a98"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-compact.bin": [
+      1247368,
+      "5b0c75c6aca6f2ce07b20af84d399bf5006acb96"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-compact.param": [
+      3837,
+      "8d43c0b1b1ada3fc6cb71824c57a37e927b239c7"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-lite.bin": [
+      10036336,
+      "8bdd4100337db7b9fe3249a0be7177afa95c403e"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x-lite.param": [
+      86038,
+      "21de660bca54fdf7cd08a98722ee149273259f4e"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-lite.bin": [
+      10036336,
+      "cbef1b6dc5ca625e9a95f8502c5d04becef8d583"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x-lite.param": [
+      45848,
+      "3479d14b0d01fbe22cd5a626a38aeccd48a2bf3e"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-lite.bin": [
+      10054900,
+      "3d323ea36c03dd8532cf51b23fc132542518ac59"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x-lite.param": [
+      86300,
+      "ffc557726668bd6125cd8fa54703a45d368eb69a"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x.bin": [
+      33350532,
+      "639484cccfbbdf1e1fd0bbc3d52c65a8556b9e97"
+    ],
+    "upscale/models/opencomic-ai-upscale-2x.param": [
+      165316,
+      "a5d2e5dd6c17588712f6da8cbe24722aaf11d888"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x.bin": [
+      33350532,
+      "6e766126b4355aa8a3e1b9d9d13a38745fcabff5"
+    ],
+    "upscale/models/opencomic-ai-upscale-3x.param": [
+      89204,
+      "848d580dd420aaee599d49db503a4081c9b390ee"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x.bin": [
+      33424520,
+      "b3bce848a02349618cb0738d25075488fc354657"
+    ],
+    "upscale/models/opencomic-ai-upscale-4x.param": [
+      165579,
+      "ada726cc231db8a8bdd63a256bfc04f8a11899ee"
+    ],
+    "upscale/realcugan/models/up2x-conservative.bin": [
+      2573648,
+      "fccd3775f9e800f79bc08b429541c3e3f2c8b599"
+    ],
+    "upscale/realcugan/models/up2x-conservative.param": [
+      4818,
+      "27dc846aae400e3d0aac39200cb681e944617ea3"
+    ],
+    "upscale/realcugan/models/up2x-denoise3x.bin": [
+      2573648,
+      "39916823fbb735e77e6da10f0d6592b486d17177"
+    ],
+    "upscale/realcugan/models/up2x-denoise3x.param": [
+      4818,
+      "27dc846aae400e3d0aac39200cb681e944617ea3"
+    ],
+    "upscale/realcugan/models/up2x-no-denoise.bin": [
+      2573648,
+      "e012338e4c244d605a67ae3d095bd6e27a49466a"
+    ],
+    "upscale/realcugan/models/up2x-no-denoise.param": [
+      4818,
+      "27dc846aae400e3d0aac39200cb681e944617ea3"
+    ],
+    "upscale/realcugan/models/up3x-conservative.bin": [
+      2577104,
+      "d54f26d005a3e34aa7593743c1710efa620cfe4d"
+    ],
+    "upscale/realcugan/models/up3x-conservative.param": [
+      4818,
+      "cba2168135c8aa20eda7b8d3ab375afecb04ed59"
+    ],
+    "upscale/realcugan/models/up3x-denoise3x.bin": [
+      2577104,
+      "37196904e4e91a185b6e4544633e7747b2a64053"
+    ],
+    "upscale/realcugan/models/up3x-denoise3x.param": [
+      4818,
+      "cba2168135c8aa20eda7b8d3ab375afecb04ed59"
+    ],
+    "upscale/realcugan/models/up3x-no-denoise.bin": [
+      2577104,
+      "d38861a834aade14375638ea0a8c4430e605dda7"
+    ],
+    "upscale/realcugan/models/up3x-no-denoise.param": [
+      4818,
+      "cba2168135c8aa20eda7b8d3ab375afecb04ed59"
+    ],
+    "upscale/realcugan/models/up4x-conservative.bin": [
+      2818348,
+      "d3ce1b141c538712a82dec7e671d0d93e3a29189"
+    ],
+    "upscale/realcugan/models/up4x-conservative.param": [
+      5078,
+      "be627e7847365ce85dac2eabb5f96e999544aea9"
+    ],
+    "upscale/realcugan/models/up4x-denoise3x.bin": [
+      2818348,
+      "798ff53c4332a831fa28c63d16f8e4f552d1fd1e"
+    ],
+    "upscale/realcugan/models/up4x-denoise3x.param": [
+      5078,
+      "be627e7847365ce85dac2eabb5f96e999544aea9"
+    ],
+    "upscale/realcugan/models/up4x-no-denoise.bin": [
+      2818348,
+      "e05d8c003eb885d1d9f653749ff7bd72ff995acf"
+    ],
+    "upscale/realcugan/models/up4x-no-denoise.param": [
+      5078,
+      "be627e7847365ce85dac2eabb5f96e999544aea9"
+    ],
+    "upscale/models/realesr-animevideov3-x2.bin": [
+      1247368,
+      "20691050e279557160fbef5fa3f45fafeeac5402"
+    ],
+    "upscale/models/realesr-animevideov3-x2.param": [
+      3173,
+      "42e774841c35c8bf0ffeb215bb40c61d4868be16"
+    ],
+    "upscale/models/realesr-animevideov3-x3.bin": [
+      1247368,
+      "20691050e279557160fbef5fa3f45fafeeac5402"
+    ],
+    "upscale/models/realesr-animevideov3-x3.param": [
+      3173,
+      "bf4718580cc40eac9ff34f730ca64053feaf7bf4"
+    ],
+    "upscale/models/realesr-animevideov3-x4.bin": [
+      1247368,
+      "20691050e279557160fbef5fa3f45fafeeac5402"
+    ],
+    "upscale/models/realesr-animevideov3-x4.param": [
+      3077,
+      "5b922cc388374b1152e01fa633bcab80b2448dae"
+    ],
+    "upscale/models/realesrgan-x4plus.bin": [
+      33424520,
+      "5cea94783710c25d6fffa9fe9b59999498aec3d4"
+    ],
+    "upscale/models/realesrgan-x4plus.param": [
+      116029,
+      "d14d62ebb815bdd522ed112e67695b3377f86ca0"
+    ],
+    "upscale/models/realesrgan-x4plus-anime.bin": [
+      8943500,
+      "95201b7beeefaa2de45bc80f77f879f51d2fc534"
+    ],
+    "upscale/models/realesrgan-x4plus-anime.param": [
+      30290,
+      "6c98f9a1932603688683a6f0108cbdfcd6b3e680"
+    ],
+    "upscale/models/realesrnet-x4plus.bin": [
+      33424520,
+      "4f5b87990354b39b744adf25e36f4857065584a6"
+    ],
+    "upscale/models/realesrnet-x4plus.param": [
+      116029,
+      "d14d62ebb815bdd522ed112e67695b3377f86ca0"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise0_scale2.0x_model.bin": [
+      2776400,
+      "a6e1abebdbbe42bec32c550ffa7444b89bbc395b"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise0_scale2.0x_model.param": [
+      7249,
+      "d2bf329993a1a841e4ed100480f7a1ab53dfb0c5"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise1_scale2.0x_model.bin": [
+      2776400,
+      "7696191c551895238e0488af337d74151e981527"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise1_scale2.0x_model.param": [
+      7249,
+      "d2bf329993a1a841e4ed100480f7a1ab53dfb0c5"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise2_scale2.0x_model.bin": [
+      2776400,
+      "e6f39fe81c5ff6867d58395dd509bed6171a6497"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise2_scale2.0x_model.param": [
+      7249,
+      "d2bf329993a1a841e4ed100480f7a1ab53dfb0c5"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise3_scale2.0x_model.bin": [
+      2776400,
+      "ed8e90f9358c204260068f7d2db7fa7b4b2feab1"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-noise3_scale2.0x_model.param": [
+      7249,
+      "d2bf329993a1a841e4ed100480f7a1ab53dfb0c5"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-scale2.0x_model.bin": [
+      2776400,
+      "a45551066ca7ebd3129b26b4188db5590badd380"
+    ],
+    "upscale/waifu2x/models/waifu2x-cunet-scale2.0x_model.param": [
+      7249,
+      "d2bf329993a1a841e4ed100480f7a1ab53dfb0c5"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise0_scale2.0x_model.bin": [
+      1106248,
+      "da22decb81218ca7918ceaf3a1ed7d9f1376fe75"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise0_scale2.0x_model.param": [
+      1047,
+      "b1802404ec18915da778c9f58681a82e7b30c0c7"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise1_scale2.0x_model.bin": [
+      1106248,
+      "e2ca18eff4002a29c9daefda25be3a9a0ed08aac"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise1_scale2.0x_model.param": [
+      1047,
+      "b1802404ec18915da778c9f58681a82e7b30c0c7"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise2_scale2.0x_model.bin": [
+      1106248,
+      "d320dd730f347c963da415b9a7fb93fdf6d50525"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise2_scale2.0x_model.param": [
+      1047,
+      "b1802404ec18915da778c9f58681a82e7b30c0c7"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise3_scale2.0x_model.bin": [
+      1106248,
+      "872324a78a055888ee4fbbbb8be2832b97595032"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-noise3_scale2.0x_model.param": [
+      1047,
+      "b1802404ec18915da778c9f58681a82e7b30c0c7"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-scale2.0x_model.bin": [
+      1106248,
+      "00f60a425603b5424fa112eecc0274bfb57f3ab1"
+    ],
+    "upscale/waifu2x/models/waifu2x-upconv-scale2.0x_model.param": [
+      1047,
+      "b1802404ec18915da778c9f58681a82e7b30c0c7"
+    ],
+    "upscale/models/4x-WTP-ColorDS.bin": [
+      33424520,
+      "0eb098d4f5960da4f07ef8599e5f669ee885fbb3"
+    ],
+    "upscale/models/4x-WTP-ColorDS.param": [
+      165579,
+      "ada726cc231db8a8bdd63a256bfc04f8a11899ee"
+    ],
+    "upscale/models/remacri-4x.bin": [
+      33424520,
+      "74848459d3b39e17d82b0f9bd9c0b08040d27495"
+    ],
+    "upscale/models/remacri-4x.param": [
+      140295,
+      "8bfd554da07132362b7f75c69a2fc655a60c8c95"
+    ],
+    "upscale/models/ultramix-balanced-4x.bin": [
+      33424520,
+      "ecbc3058bee038c4b72a13cf3b0c4bf104bce813"
+    ],
+    "upscale/models/ultramix-balanced-4x.param": [
+      140295,
+      "8bfd554da07132362b7f75c69a2fc655a60c8c95"
+    ],
+    "upscale/models/ultrasharp-4x.bin": [
+      33424520,
+      "2af00892fd1da5dcbeedbedfa62741f9401fd8a0"
+    ],
+    "upscale/models/ultrasharp-4x.param": [
+      116029,
+      "b316829da47f8a69f89b5755211d7ba166a1e399"
+    ],
+    "upscale/models/4xInt-RemAnime.bin": [
+      33424520,
+      "46805bccd5adce499a7eece41d51d1d73290fe0e"
+    ],
+    "upscale/models/4xInt-RemAnime.param": [
+      165579,
+      "ada726cc231db8a8bdd63a256bfc04f8a11899ee"
+    ],
+    "upscale/models/AI-Forever_x4plus.bin": [
+      33424520,
+      "7259f50828ff0309de50e54d80130b4c7151ec3c"
+    ],
+    "upscale/models/AI-Forever_x4plus.param": [
+      165579,
+      "ada726cc231db8a8bdd63a256bfc04f8a11899ee"
+    ],
+    "upscale/models/4xNomosWebPhoto_esrgan.bin": [
+      33424520,
+      "a5925fa5ae9a53c1f40b740c708db0da7a83334a"
+    ],
+    "upscale/models/4xNomosWebPhoto_esrgan.param": [
+      165579,
+      "ada726cc231db8a8bdd63a256bfc04f8a11899ee"
+    ],
+    "upscale/models/4xHFA2k.bin": [
+      33424520,
+      "80d7a5d56afaf06ddb2770c022d44c3677a4d37c"
+    ],
+    "upscale/models/4xHFA2k.param": [
+      108039,
+      "aafe22d603d714ff07f3b1b24f5f0149c9767911"
+    ],
+    "upscale/models/4xLSDIRCompactC3.bin": [
+      1247368,
+      "5e9ec6ebb7d1811ccd9286a253e2575ae73b643c"
+    ],
+    "upscale/models/4xLSDIRCompactC3.param": [
+      2767,
+      "0c02905d51229cfe2c2e9f6562b01ce9dcc0713b"
+    ],
+    "upscale/models/4xLSDIRplusC.bin": [
+      33424520,
+      "0746b5f44d28c90cbf87e438c98f0cdd52ba975a"
+    ],
+    "upscale/models/4xLSDIRplusC.param": [
+      108039,
+      "aafe22d603d714ff07f3b1b24f5f0149c9767911"
+    ],
+    "upscale/models/4x_NMKD-Siax_200k.bin": [
+      66793352,
+      "f7333bdf6e62c44e723113e2674908f391947baf"
+    ],
+    "upscale/models/4x_NMKD-Siax_200k.param": [
+      108037,
+      "c6d62b67aee7d30d8c2a3cc4847727c1c6155d74"
+    ],
+    "upscale/models/4xNomos8kSC.bin": [
+      33424520,
+      "ce5cfda16b37a9808d956b748e52564f6e978fd5"
+    ],
+    "upscale/models/4xNomos8kSC.param": [
+      108039,
+      "aafe22d603d714ff07f3b1b24f5f0149c9767911"
+    ],
+    "upscale/models/RealESRGAN_General_WDN_x4_v3.bin": [
+      2435272,
+      "a763b5065f282918ddb1aaa035d4f8b6b69fc39b"
+    ],
+    "upscale/models/RealESRGAN_General_WDN_x4_v3.param": [
+      5019,
+      "221234ab0dc2641a11038f3682669ded6ba9e6d6"
+    ],
+    "upscale/models/RealESRGAN_General_x4_v3.bin": [
+      2435272,
+      "e0a8b6ca061931284832a67cdd4112d94a7c98a0"
+    ],
+    "upscale/models/RealESRGAN_General_x4_v3.param": [
+      5019,
+      "221234ab0dc2641a11038f3682669ded6ba9e6d6"
+    ],
+    "upscale/models/uniscale_restore_x4.bin": [
+      33424520,
+      "2977b7eebbbdc7557a3a58f372fbb79006a868f8"
+    ],
+    "upscale/models/uniscale_restore_x4.param": [
+      108039,
+      "aafe22d603d714ff07f3b1b24f5f0149c9767911"
+    ],
+    "upscale/models/unknown-2.0.1.bin": [
+      33424520,
+      "7f6a736fe70eb704f2b38e325e6b3ccc11ef9f34"
+    ],
+    "upscale/models/unknown-2.0.1.param": [
+      140295,
+      "8bfd554da07132362b7f75c69a2fc655a60c8c95"
+    ]
+  }
+}

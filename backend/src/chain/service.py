@@ -80,13 +80,22 @@ def service_fingerprint(chain: Chain, options: ExecutionOptions) -> str:
                 ),
             )
         )
+        is_opencomic = node.schema_id == "chainner:image:opencomic_ai"
+        if is_opencomic:
+            from nodes.impl.opencomic.pipeline import CACHE_VERSION
+
+            nodes.append(("opencomic", CACHE_VERSION))
         for node_input in node.data.inputs:
             if node_input.kind == "file":
                 value = values.get(node_input.id)
                 if isinstance(value, str | Path):
                     path = Path(value).resolve()
-                    info = path.stat()
-                    files.append((str(path), info.st_size, info.st_mtime_ns))
+                    paths = (
+                        (path, path.with_suffix(".bin")) if is_opencomic else (path,)
+                    )
+                    for model_path in paths:
+                        info = model_path.stat()
+                        files.append((str(model_path), info.st_size, info.st_mtime_ns))
         package_id = registry.get_package(node.schema_id).id
         settings[package_id] = options.get_package_settings_json(package_id)
     data = json.dumps(

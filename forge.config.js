@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const AdmZip = require('adm-zip');
 const fs = require('fs/promises');
+const { existsSync } = require('fs');
 const path = require('path');
 const packageJson = require('./package.json');
 
@@ -43,7 +44,13 @@ const config = {
     packagerConfig: {
         asar: false,
         executableName: process.platform === 'linux' ? packageJson.name : packageJson.productName,
-        extraResource: ['./backend/src/', './src/public/icons/mac/file_chn.icns'],
+        extraResource: [
+            './backend/src/',
+            './src/public/icons/mac/file_chn.icns',
+            ...(process.platform === 'win32' && existsSync('./backend/opencomic-runtime/node.exe')
+                ? ['./backend/opencomic-runtime']
+                : []),
+        ],
         icon: makerOptions.icon,
         appBundleId: packageJson.appId,
         appCategoryType: 'public.app-category.graphics-design',

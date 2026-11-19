@@ -245,3 +245,9 @@ dmypy.json
 
 # traces
 backend/traces
+
+# Local OpenComic runtime and model downloads
+/backend/opencomic-runtime/
+/backend/opencomic-npm-cache/
+/models/opencomic/
+/runtime-temp/opencomic/

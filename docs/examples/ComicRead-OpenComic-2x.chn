@@ -1,0 +1,103 @@
+{
+  "version": "0.26.1",
+  "migration": 45,
+  "content": {
+    "nodes": [
+      {
+        "id": "b44f0e52-0760-539a-b5f7-f136858294fa",
+        "data": {
+          "id": "b44f0e52-0760-539a-b5f7-f136858294fa",
+          "schemaId": "chainner:image:receive_image",
+          "nodeName": "接收漫画",
+          "inputData": {
+            "0": 5004,
+            "3": 5
+          }
+        },
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "type": "generator"
+      },
+      {
+        "id": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d",
+        "data": {
+          "id": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d",
+          "schemaId": "chainner:image:opencomic_ai",
+          "nodeName": "OpenComic AI",
+          "inputData": {
+            "1": "opencomic-ai-artifact-removal-balanced-v3-ps",
+            "3": "opencomic-ai-descreen-hard-fast-v4-preview",
+            "5": 1,
+            "6": 3,
+            "7": "opencomic-ai-upscale-fast-v3",
+            "9": 2,
+            "10": 0,
+            "11": 2,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          }
+        },
+        "position": {
+          "x": 430,
+          "y": 0
+        },
+        "type": "regularNode"
+      },
+      {
+        "id": "e1f07375-a16d-546b-8436-b7d68295751b",
+        "data": {
+          "id": "e1f07375-a16d-546b-8436-b7d68295751b",
+          "schemaId": "chainner:image:return_image",
+          "nodeName": "返回漫画",
+          "inputData": {}
+        },
+        "position": {
+          "x": 940,
+          "y": 0
+        },
+        "type": "regularNode"
+      }
+    ],
+    "edges": [
+      {
+        "id": "fdf73bcf-7802-4381-b7e1-a815ad5954f5",
+        "source": "b44f0e52-0760-539a-b5f7-f136858294fa",
+        "target": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d",
+        "sourceHandle": "b44f0e52-0760-539a-b5f7-f136858294fa-0",
+        "targetHandle": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d-0",
+        "type": "main",
+        "data": {}
+      },
+      {
+        "id": "28c68e1d-f010-4755-a4f3-e3796e463c7f",
+        "source": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d",
+        "target": "e1f07375-a16d-546b-8436-b7d68295751b",
+        "sourceHandle": "4d0059c5-bc9b-57bb-a22f-c4e7d05be35d-0",
+        "targetHandle": "e1f07375-a16d-546b-8436-b7d68295751b-0",
+        "type": "main",
+        "data": {}
+      },
+      {
+        "id": "2c38b297-54cf-4158-b382-a9f51d2c07aa",
+        "source": "b44f0e52-0760-539a-b5f7-f136858294fa",
+        "target": "e1f07375-a16d-546b-8436-b7d68295751b",
+        "sourceHandle": "b44f0e52-0760-539a-b5f7-f136858294fa-1",
+        "targetHandle": "e1f07375-a16d-546b-8436-b7d68295751b-1",
+        "type": "main",
+        "data": {}
+      }
+    ],
+    "viewport": {
+      "x": 35,
+      "y": 35,
+      "zoom": 0.73
+    }
+  },
+  "checksum": "c5636ef392d52532c5124be30f190fc5"
+}

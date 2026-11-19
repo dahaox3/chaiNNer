@@ -1,0 +1,9 @@
+{
+  "name": "chainner-opencomic-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "opencomic-ai-bin": "1.6.1",
+    "sharp": "0.35.5"
+  }
+}
