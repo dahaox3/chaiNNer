@@ -9,16 +9,19 @@ import json
 import os
 import re
 import socket
+import tempfile
 import threading
 import time
 import uuid
+from collections import OrderedDict
 from dataclasses import dataclass, field
 from email.message import EmailMessage
 from email.parser import BytesParser
 from email.policy import default
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from typing import BinaryIO
+from urllib.parse import parse_qs, urlsplit
 
 import cv2
 import numpy as np
@@ -32,6 +35,7 @@ MAX_PIXELS = 40_000_000
 MAX_RESULT = 256 * 1024**2
 MAX_QUEUE = 8
 MAX_JOBS = 128
+RESULT_MEMORY_LIMIT = 128 * 1024**2
 JOB_TTL = 600
 _SERVICES: dict[str, ImageService] = {}
 _SERVICES_LOCK = threading.Lock()
@@ -95,60 +99,93 @@ class ImageCache:
         self.directory.mkdir(parents=True, exist_ok=True)
         self.limit = limit
         self.lock = threading.RLock()
-        self.last_touch = max((p.stat().st_mtime_ns for p in self._files()), default=0)
-        with self.lock:
-            self._evict()
+        self.last_touch = 0
+        self.entries: OrderedDict[Path, int] = OrderedDict()
+        self.total_size = 0
+        self._reindex()
+        self._evict()
+        self.directory_stamp = self.directory.stat().st_mtime_ns
+
+    def _reindex(self):
+        entries = []
+        with os.scandir(self.directory) as files:
+            for entry in files:
+                if not re.fullmatch(r"[a-f0-9]{64}\.png", entry.name):
+                    continue
+                try:
+                    if entry.is_file(follow_symlinks=False):
+                        info = entry.stat(follow_symlinks=False)
+                        entries.append(
+                            (info.st_mtime_ns, Path(entry.path), info.st_size)
+                        )
+                except FileNotFoundError:
+                    continue
+        self.entries = OrderedDict((p, size) for _, p, size in sorted(entries))
+        self.total_size = sum(self.entries.values())
+        self.last_touch = max(
+            self.last_touch, max((t for t, _, _ in entries), default=0)
+        )
+
+    def _forget(self, path: Path):
+        self.total_size -= self.entries.pop(path, 0)
+
+    def _record(self, path: Path, size: int):
+        self._forget(path)
+        self.entries[path] = size
+        self.total_size += size
 
     def _touch(self, path: Path):
         # NTFS rounds timestamps; make consecutive accesses distinguishable.
         self.last_touch = max(time.time_ns(), self.last_touch + 1000)
         os.utime(path, ns=(self.last_touch, self.last_touch))
 
-    def _files(self) -> list[Path]:
-        return [
-            p
-            for p in self.directory.glob("*.png")
-            if re.fullmatch(r"[a-f0-9]{64}\.png", p.name) and not p.is_symlink()
-        ]
-
     def _evict(self):
-        files = sorted(self._files(), key=lambda p: p.stat().st_mtime_ns)
-        size = sum(p.stat().st_size for p in files)
-        for path in files:
-            if size <= self.limit:
-                break
-            size -= path.stat().st_size
+        while self.total_size > self.limit:
+            path = next(iter(self.entries))
             path.unlink(missing_ok=True)
+            self._forget(path)
 
     def get(self, key: str) -> bytes | None:
         with self.lock:
             path = self.directory / f"{key}.png"
             if not path.is_file() or path.is_symlink():
+                self._forget(path)
                 return None
             try:
                 data = path.read_bytes()
                 self._touch(path)
+                self._record(path, len(data))
                 return data
             except FileNotFoundError:
+                self._forget(path)
                 return None
 
     def put(self, key: str, data: bytes):
         if len(data) > self.limit:
             return
         with self.lock:
+            # Reconcile external additions/removals; ordinary inserts update the index directly.
+            if self.directory.stat().st_mtime_ns != self.directory_stamp:
+                self._reindex()
+            path = self.directory / f"{key}.png"
             temporary = self.directory / f"{uuid.uuid4().hex}.tmp"
             try:
                 temporary.write_bytes(data)
-                temporary.replace(self.directory / f"{key}.png")
-                self._touch(self.directory / f"{key}.png")
+                temporary.replace(path)
+                self._touch(path)
+                self._record(path, len(data))
                 self._evict()
+                self.directory_stamp = self.directory.stat().st_mtime_ns
             finally:
                 temporary.unlink(missing_ok=True)
 
     def clear(self):
         with self.lock:
-            for path in self._files():
+            self._reindex()
+            for path in list(self.entries):
                 path.unlink(missing_ok=True)
+                self._forget(path)
+            self.directory_stamp = self.directory.stat().st_mtime_ns
 
 
 @dataclass
@@ -158,6 +195,7 @@ class Work:
     sequence: int
     state: str = "queued"
     result: bytes | None = None
+    spill: BinaryIO | None = None
     error: str | None = None
     cached: bool = False
 
@@ -215,28 +253,6 @@ class ImageService:
         for identifier, job in list(self.jobs.items()):
             if job.cancelled or job.touched < cutoff:
                 del self.jobs[identifier]
-        # Browsers normally DELETE after downloading. Bound retained results even
-        # when a client disappears without doing so (keep one oversized result).
-        ready = sorted(
-            {
-                job.work.key: job.work
-                for job in sorted(self.jobs.values(), key=lambda job: job.touched)
-                if job.work.result is not None
-            }.values(),
-            key=lambda work: max(
-                job.touched for job in self.jobs.values() if job.work is work
-            ),
-        )
-        retained_bytes = sum(len(work.result or b"") for work in ready)
-        for work in ready[:-1]:
-            if retained_bytes <= 128 * 1024**2:
-                break
-            retained_bytes -= len(work.result or b"")
-            self.jobs = {
-                identifier: job
-                for identifier, job in self.jobs.items()
-                if job.work is not work
-            }
         self.cancelled = {
             identifier: touched
             for identifier, touched in self.cancelled.items()
@@ -247,14 +263,46 @@ class ImageService:
         retained = {job.work.key for job in self.jobs.values() if not job.cancelled}
         for key, work in list(self.works.items()):
             if key not in retained and work is not self.active:
+                if work.spill is not None:
+                    work.spill.close()
                 del self.works[key]
+
+    def _bound_results(self):
+        resident = [work for work in self.works.values() if work.result is not None]
+        size = sum(len(work.result or b"") for work in resident)
+        for work in resident:
+            if size <= RESULT_MEMORY_LIMIT:
+                break
+            data = work.result
+            assert data is not None
+            # A temporary delivery copy keeps every subscriber valid across disk LRU
+            # eviction (also when persistent caching is disabled). Auto-delete on close.
+            spill = tempfile.TemporaryFile(dir=self.cache.directory)
+            try:
+                spill.write(data)
+                spill.flush()
+            except BaseException:
+                spill.close()
+                raise
+            work.spill = spill
+            work.result = None
+            size -= len(data)
+
+    def clear_jobs(self):
+        for work in self.works.values():
+            if work.spill is not None:
+                work.spill.close()
+        self.works.clear()
+        self.jobs.clear()
 
     def submit(self, data: bytes, identifier: str, priority: int) -> dict:
         if not re.fullmatch(r"[A-Za-z0-9_-]{20,80}", identifier):
             raise BridgeError(
                 "request_id must be a unique opaque identifier (20-80 characters)."
             )
-        key = hashlib.sha256(self.fingerprint.encode() + b"\0" + data).hexdigest()
+        digest = hashlib.sha256(self.fingerprint.encode() + b"\0")
+        digest.update(data)
+        key = digest.hexdigest()
         with self.condition:
             self.prune()
             if self.closed:
@@ -290,6 +338,8 @@ class ImageService:
                     cached=cached is not None,
                 )
                 self.works[key] = work
+                if cached is not None:
+                    self._bound_results()
             job = Job(identifier, work, max(0, priority))
             self.jobs[identifier] = job
             self.condition.notify_all()
@@ -343,6 +393,7 @@ class ImageService:
                 raise ValueError("Request does not belong to the active image.")
             self.cache.put(key, data)
             work.result = data
+            self._bound_results()
             work.state = "ready"
             self.active = None
             self.condition.notify_all()
@@ -366,8 +417,7 @@ class ImageService:
         with _SERVICES_LOCK:
             _SERVICES.pop(self.id, None)
         with self.condition:
-            self.jobs.clear()
-            self.works.clear()
+            self.clear_jobs()
             self.active = None
 
     def _handler(self):
@@ -428,6 +478,7 @@ class ImageService:
                         service.prune()
                         state = {
                             "protocol": PROTOCOL_VERSION,
+                            "binary_upload": True,
                             "fingerprint": service.fingerprint,
                             "paused": service.context.paused,
                             "queued": sum(
@@ -446,12 +497,19 @@ class ImageService:
                                 "Wait for current tasks before clearing cache.", 409
                             )
                         service.cache.clear()
-                        service.jobs.clear()
-                        service.works.clear()
+                        service.clear_jobs()
                     self._reply(200, {"cleared": True})
                     return
                 if route == "/v1/jobs" and self.command == "POST":
                     content_type = self.headers.get("Content-Type", "")
+                    if content_type.partition(";")[0] == "application/octet-stream":
+                        params = parse_qs(urlsplit(self.path).query, max_num_fields=2)
+                        identifier = params["request_id"][0]
+                        priority = int(params.get("priority", ["0"])[0])
+                        self._reply(
+                            200, service.submit(self._body(), identifier, priority)
+                        )
+                        return
                     if not content_type.startswith("multipart/form-data;"):
                         raise BridgeError("Expected multipart/form-data.")
                     message = BytesParser(policy=default).parsebytes(
@@ -495,13 +553,14 @@ class ImageService:
                     with service.condition:
                         job = service.get_job(match[1])
                         if match[2] == "/result" and self.command == "GET":
-                            if (
-                                job.cancelled
-                                or job.work.state != "ready"
-                                or job.work.result is None
-                            ):
+                            if job.cancelled or job.work.state != "ready":
                                 raise BridgeError("Result is not available.", 409)
-                            result: bytes | dict = job.work.result
+                            if job.work.spill is not None:
+                                job.work.spill.seek(0)
+                                result: bytes | dict = job.work.spill.read()
+                            else:
+                                assert job.work.result is not None
+                                result = job.work.result
                         elif (not match[2] and self.command in ("GET", "PATCH")) or (
                             match[2] == "/priority" and self.command == "POST"
                         ):

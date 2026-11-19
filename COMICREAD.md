@@ -47,8 +47,17 @@ to eight distinct images; matching content shares inference but has independent
 subscriber IDs. One subscriber cancelling does not cancel another. An active GPU
 operation is allowed to finish and populate the disk cache after cancellation.
 
+New readers use a binary body when status advertises `binary_upload: true`.
+POST the original image bytes as `application/octet-stream` to
+`/v1/jobs?request_id=<id>&priority=<number>`. Both upload formats share the same
+authentication, limits, deduplication and cache keys.
+
 Completed subscriptions should be DELETEd after downloading. Abandoned jobs expire
-after ten minutes. Retained result memory is bounded, and the executor drains
+after ten minutes. Under memory pressure the service temporarily spools
+unclaimed PNGs in the configured cache directory, including with persistent
+caching disabled. They remain available to all live subscribers through LRU
+evictions and are released on cancellation, expiry, clear or shutdown. Retained
+result memory is bounded, and the executor drains
 preview tasks and caps stream timing history instead of accumulating them forever.
 
 ## Cache and maintenance

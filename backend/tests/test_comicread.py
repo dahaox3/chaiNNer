@@ -140,6 +140,72 @@ def test_alias_cancellation_priority_and_idempotency(service):
     assert upload(service, image_bytes(0.9), late_id).status_code == 409
 
 
+@pytest.mark.parametrize("cache_enabled", [True, False])
+def test_ready_jobs_survive_memory_pressure_and_disk_eviction(
+    service, monkeypatch, cache_enabled
+):
+    monkeypatch.setattr("nodes.impl.comicread.RESULT_MEMORY_LIMIT", 1)
+    first_png = image_bytes(0.25)
+    service.cache.limit = len(first_png) if cache_enabled else 0
+    first = upload(service, first_png).json()["id"]
+    alias = upload(service, first_png).json()["id"]
+    image, request_id = service.next_image()
+    return_image(image, request_id)
+    spill = service.jobs[first].work.spill
+    assert spill and not spill.closed
+    # A second page can evict the first from the persistent LRU.
+    second = upload(service, image_bytes(0.75)).json()["id"]
+    image, request_id = service.next_image()
+    return_image(image, request_id)
+    assert api(service, "/status").status_code == 200
+    assert api(service, f"/jobs/{first}/result").content == first_png
+    assert api(service, f"/jobs/{first}", "DELETE").ok
+    assert api(service, f"/jobs/{alias}/result").content == first_png
+    assert api(service, f"/jobs/{second}/result").content == image_bytes(0.75)
+    assert api(service, f"/jobs/{alias}", "DELETE").ok
+    assert spill.closed
+
+
+def test_binary_and_multipart_subscribers_share_inference(service):
+    assert api(service, "/status").json()["binary_upload"]
+    identifier = uuid.uuid4().hex
+    with requests.Session() as client:
+        client.trust_env = False
+        res = client.post(
+            f"http://127.0.0.1:{service.port}/v1/jobs",
+            params={"request_id": identifier, "priority": 7},
+            headers={
+                "Content-Type": "application/octet-stream",
+                "Authorization": f"Bearer {TOKEN}",
+            },
+            data=image_bytes(),
+            timeout=3,
+        )
+    assert res.json()["id"] == identifier
+    assert service.jobs[identifier].priority == 7
+    alias = upload(service).json()["id"]
+    assert service.jobs[alias].work is service.jobs[identifier].work
+    image, request_id = service.next_image()
+    return_image(image, request_id)
+    assert api(service, f"/jobs/{identifier}/result").content == image_bytes()
+
+
+def test_cache_index_overwrite_restart_and_external_deletion(tmp_path):
+    cache = ImageCache(tmp_path, 9)
+    a, b, c = "a" * 64, "b" * 64, "c" * 64
+    cache.put(a, b"large")
+    cache.put(a, b"a")
+    cache.put(b, b"bbbb")
+    assert cache.get(a) == b"a"
+    cache = ImageCache(tmp_path, 9)
+    cache.put(c, b"ccccc")
+    assert cache.get(b) is None
+    assert cache.get(a) == b"a"
+    (tmp_path / f"{c}.png").unlink()
+    cache.put(b, b"bbbb")
+    assert cache.total_size == 5
+
+
 def test_queue_bound_and_clear(service):
     for i in range(8):
         assert upload(service, image_bytes(i / 10)).status_code == 200
