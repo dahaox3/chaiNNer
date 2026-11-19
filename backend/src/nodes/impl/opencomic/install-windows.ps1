@@ -15,6 +15,8 @@ Push-Location -LiteralPath $target
 try {
     & npm.cmd ci --omit=dev --ignore-scripts --no-audit --no-fund --cache (Join-Path (Split-Path $target) 'opencomic-npm-cache')
     if ($LASTEXITCODE) { throw 'OpenComic runtime installation failed.' }
+    & $nodePath (Join-Path $PSScriptRoot 'patch-daemon-tta.cjs') $target
+    if ($LASTEXITCODE) { throw 'Failed to prepare OpenComic daemon TTA support.' }
     & $nodePath -e "require('sharp'); require('opencomic-ai-bin')"
     if ($LASTEXITCODE) { throw 'The installed dependencies require a newer Node.js runtime.' }
     Copy-Item -LiteralPath $nodePath -Destination (Join-Path $target 'node.exe')

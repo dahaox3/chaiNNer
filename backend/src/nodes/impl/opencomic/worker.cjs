@@ -2,6 +2,7 @@
 const {createRequire} = require('node:module');
 const path = require('node:path');
 const readline = require('node:readline');
+const {checkInstalled} = require('./patch-daemon-tta.cjs');
 const deps = createRequire(path.join(process.argv[2], 'package.json'));
 const AI = deps('opencomic-ai-bin');
 AI.setSharp(deps('sharp'));
@@ -25,9 +26,14 @@ function registerCustom(step) {
 }
 
 async function main() {
+    let ttaChecked = false;
     for await (const line of lines) {
         try {
             const {source, dest, steps} = JSON.parse(line);
+            if (!ttaChecked && steps.some(step => step.tta)) {
+                checkInstalled(deps.resolve('opencomic-ai-bin'));
+                ttaChecked = true;
+            }
             steps.forEach(registerCustom);
             await AI.pipeline(source, dest, steps, progress => send({progress}));
             send({done: true});

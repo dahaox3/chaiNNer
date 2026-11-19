@@ -156,3 +156,39 @@ def test_native_worker_reuse_cancel_and_alpha():
     finally:
         for call in ctx.add_cleanup.call_args_list:
             call.args[0]()
+
+
+@pytest.mark.skipif(
+    not os.environ.get("CHAINNER_OPENCOMIC_GPU_TEST"),
+    reason="Optional native Vulkan runtime",
+)
+def test_tta_changes_pixels_and_reuses_the_right_network():
+    ctx = Mock(spec=NodeContext)
+    image = np.random.default_rng(17).random((65, 97, 3), dtype=np.float32)
+    off = steps(upscale=oc.UPSCALE)
+    on = steps(upscale=oc.UPSCALE, tta=True)
+    try:
+        plain = process_image(ctx, image, *off)
+        worker = ctx.add_cleanup.call_args.args[0].__self__
+        proc = psutil.Process(worker.proc.pid)
+
+        def native_networks():
+            return [
+                child
+                for child in proc.children(recursive=True)
+                if child.name().lower().removesuffix(".exe") == "upscayl-bin"
+            ]
+
+        original = native_networks()
+        assert len(original) == 1 and "-x" not in original[0].cmdline()
+        augmented = process_image(ctx, image, *on)
+        networks = set(native_networks())
+        assert len(networks) == 2
+        assert any("-x" in child.cmdline() for child in networks)
+        assert np.any(plain != augmented)
+        np.testing.assert_array_equal(process_image(ctx, image, *on), augmented)
+        np.testing.assert_array_equal(process_image(ctx, image, *off), plain)
+        assert set(native_networks()) == networks
+    finally:
+        for call in ctx.add_cleanup.call_args_list:
+            call.args[0]()

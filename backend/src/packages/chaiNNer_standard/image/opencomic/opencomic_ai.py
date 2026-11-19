@@ -6,7 +6,15 @@ import numpy as np
 
 from api import NodeContext
 from nodes.groups import Condition, if_enum_group, if_group
-from nodes.impl.opencomic.pipeline import CUSTOM, DESCREEN, MODELS, OFF, steps_for
+from nodes.impl.opencomic.pipeline import (
+    ADVANCED_INPUT,
+    CUSTOM,
+    DESCREEN,
+    MODELS,
+    OFF,
+    TTA_INPUT,
+    steps_for,
+)
 from nodes.impl.opencomic.runtime import process_image
 from nodes.properties.inputs import (
     BoolInput,
@@ -97,10 +105,10 @@ def custom_param(label: str):
                 )
             ),
         ),
-        BoolInput("Advanced / 高级设置", default=False).with_id(14),
-        if_group(Condition.bool(14, True))(
+        BoolInput("Advanced / 高级设置", default=False).with_id(ADVANCED_INPUT),
+        if_group(Condition.bool(ADVANCED_INPUT, True))(
             NumberInput("Tile Size (0 = Auto)", default=0, min=0, max=8192).with_id(15),
-            BoolInput("Test-Time Augmentation", default=False).with_id(16),
+            BoolInput("Test-Time Augmentation", default=False).with_id(TTA_INPUT),
             BoolInput("Force FP32", default=False).with_id(17),
         ),
     ],

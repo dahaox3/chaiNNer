@@ -12,6 +12,8 @@
 - 三步都支持自定义兼容 Upscayl 的 NCNN 权重。将同名 `.param` 和 `.bin` 放在一起，选择对应步骤的 Custom NCNN，然后选择 `.param`。自定义超分模型另填原生倍率。高级选项有分块大小、TTA 和强制 FP32，应用于已启用的步骤。
 - 用在普通图片时，也可以连接 Load Image 和 Save Image。节点按 8 位 RGB 将像素传给官方后端，灰度图返回灰度。透明度单独保留，放大时线性缩放。修改图参数或模型后，停止并重新运行阅读工作流。
 
+**Test-Time Augmentation（TTA）** 默认为关闭。在高级设置勾选后，原生模型会从 8 个方向处理图像，并将结果对齐取平均。阅读工作流需要停止再运行，改动才会生效。同一设置下可以持续复用模型。旧版勾选 TTA 的成品会在首次阅读时重新计算，关闭 TTA 的工作流可以继续命中旧缓存。
+
 ## 运行库与文件
 
 便携版的 `resources/opencomic-runtime` 包含 Node、Sharp 和官方原生 Vulkan 程序。每次工作流执行共享一个通过私有管道连接的进程，官方库复用已加载的 GPU 模型，按自己的空闲策略释放。停止工作流后释放进程。该节点与现有 ComicRead 服务共用相同的接收和返回图片节点。
@@ -19,6 +21,8 @@
 权重保存在便携根目录的 `models/opencomic`，其中包含各类型的子目录。启动处理前核对所选模型及辅助模型的文件，首次缺失时从固定版本的官方模型仓库下载，校验长度和 Git 对象摘要后再放入模型目录。下载中断可重试。临时 PNG 在 `runtime-temp/opencomic`，任务结束后清理。ComicRead 的成品缓存继续使用 Receive Image 节点里配置的目录。
 
 ## 维护与重建
+
+安装脚本会将固定版 `opencomic-ai-bin@1.6.1` 的 `-x` 移入原生进程启动参数。它同时进入守护进程的复用键。升级依赖时核对上游的 `spawnDaemon`，运行 `node --test backend/tests/test_opencomic_daemon.cjs`（将 `CHAINNER_OPENCOMIC_RUNTIME` 指向已准备的运行库）。
 
 适配代码位于 `backend/src/nodes/impl/opencomic`。在 Windows x64 开发机上安装 Node 和 npm 后，将脚本的 Destination 指向便携版的 `resources/opencomic-runtime`，或源码检出的 `backend/opencomic-runtime`。安装脚本在此专用目录执行 npm ci，版本以随附的 lockfile 为准。
 

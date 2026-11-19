@@ -82,9 +82,20 @@ def service_fingerprint(chain: Chain, options: ExecutionOptions) -> str:
         )
         is_opencomic = node.schema_id == "chainner:image:opencomic_ai"
         if is_opencomic:
-            from nodes.impl.opencomic.pipeline import CACHE_VERSION
+            from nodes.impl.opencomic.pipeline import (
+                ADVANCED_INPUT,
+                CACHE_VERSION,
+                TTA_INPUT,
+            )
 
-            nodes.append(("opencomic", CACHE_VERSION))
+            # Older TTA-on results were produced without augmentation. Preserve
+            # the existing disk cache for graphs that cannot enable TTA.
+            uses_tta = all(
+                values.get(i) or chain.edge_to(node_id, i) is not None
+                for i in (ADVANCED_INPUT, TTA_INPUT)
+            )
+            version = (*CACHE_VERSION, "daemon-tta-1") if uses_tta else CACHE_VERSION
+            nodes.append(("opencomic", version))
         for node_input in node.data.inputs:
             if node_input.kind == "file":
                 value = values.get(node_input.id)

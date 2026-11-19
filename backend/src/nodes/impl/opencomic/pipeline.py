@@ -15,10 +15,12 @@ from urllib.parse import quote
 
 import requests
 
-from api import Progress
+from api import InputId, Progress
 
 CATALOG = json.loads(Path(__file__).with_name("catalog.json").read_text("utf-8"))
 CACHE_VERSION = ("opencomic-ai-bin-1.6.1", CATALOG["revision"], 1)
+ADVANCED_INPUT = InputId(14)
+TTA_INPUT = InputId(16)
 MODELS = CATALOG["models"]
 ARTIFACT = "opencomic-ai-artifact-removal-balanced-v3-ps"
 DESCREEN = "opencomic-ai-descreen-hard-fast-v4-preview"

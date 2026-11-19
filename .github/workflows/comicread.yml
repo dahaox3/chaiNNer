@@ -10,6 +10,20 @@ on:
     workflow_dispatch:
 
 jobs:
+    opencomic-daemon:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - name: Verify TTA routing against the pinned OpenComic package
+              working-directory: backend/src/nodes/impl/opencomic
+              run: |
+                  npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+                  node patch-daemon-tta.cjs .
+                  node --test ../../../../tests/test_opencomic_daemon.cjs
+
     bridge:
         runs-on: ubuntu-latest
         strategy:
